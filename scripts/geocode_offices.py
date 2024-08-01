@@ -60,7 +60,7 @@ def geocode(address):
 		'address': address,
 		'key': _get_api_key(),
 		}
-	response = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params)
+	response = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params, timeout=60)
 	js = response.json()
 	if js.get('status') != 'OK':
 		raise GeocodeException('Non-success response from geocoder: %s' % js.get('status'))

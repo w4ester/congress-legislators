@@ -12,8 +12,8 @@
 # this key is enabled for the Geocoding API in the
 # Google APIs Console.
 
-import requests
 import utils
+from security import safe_requests
 
 class GeocodeException(Exception):
 	def __init__(self, message):
@@ -60,7 +60,7 @@ def geocode(address):
 		'address': address,
 		'key': _get_api_key(),
 		}
-	response = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params)
+	response = safe_requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params)
 	js = response.json()
 	if js.get('status') != 'OK':
 		raise GeocodeException('Non-success response from geocoder: %s' % js.get('status'))

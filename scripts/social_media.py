@@ -144,7 +144,7 @@ def main():
 
         try:
           print("Resolving YT info for %s" % social['youtube'])
-          ytreq = requests.get(profile_url)
+          ytreq = requests.get(profile_url, timeout=60)
           # print "\tFetched with status code %i..." % ytreq.status_code
 
           if ytreq.status_code == 404:
@@ -153,7 +153,7 @@ def main():
               # Try to scrape the real YouTube username
               print("\Scraping YouTube username")
               search_url = ("https://www.youtube.com/%s" % social['youtube'])
-              csearch = requests.get(search_url).text.encode('ascii','ignore')
+              csearch = requests.get(search_url, timeout=60).text.encode('ascii','ignore')
 
               u = re.search(r'<a[^>]*href="[^"]*/user/([^/"]*)"[.]*>',csearch)
 
@@ -164,7 +164,7 @@ def main():
                 "?v=2&prettyprint=true&alt=json" % social['youtube'])
 
                 print("\tFetching GData profile...")
-                ytreq = requests.get(profile_url)
+                ytreq = requests.get(profile_url, timeout=60)
                 print("\tFetched GData profile")
 
               else:
@@ -222,7 +222,7 @@ def main():
 
       instagram_handle = social['instagram']
       query_url = "https://api.instagram.com/v1/users/search?q={query}&client_id={client_id}".format(query=instagram_handle,client_id=client_id)
-      instagram_user_search = requests.get(query_url).json()
+      instagram_user_search = requests.get(query_url, timeout=60).json()
       for user in instagram_user_search['data']:
         time.sleep(0.5)
         if user['username'] == instagram_handle:

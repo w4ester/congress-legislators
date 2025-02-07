@@ -15,7 +15,7 @@ def run():
 	y = load_data("legislators-current.yaml")
 
 	# TODO use download util?
-	xml = requests.get("http://clerk.house.gov/xml/lists/MemberData.xml")
+	xml = requests.get("http://clerk.house.gov/xml/lists/MemberData.xml", timeout=60)
 	#xml = requests.get("https://clerk.house.gov/xml/lists/unofficial-118-member-elect-data.xml")
 	root=lxml.etree.fromstring(xml.content)
 

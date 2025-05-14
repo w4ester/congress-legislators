@@ -53,7 +53,7 @@ def run():
 
 def get_bioguide_for_house_history_id(id):
     url = "http://history.house.gov/People/Detail/%s" % id
-    r = requests.get(url, allow_redirects=False)
+    r = requests.get(url, allow_redirects=False, timeout=60)
     if r.status_code == 200:
         dom = lxml.html.parse(io.StringIO(r.text)).getroot()
         try:

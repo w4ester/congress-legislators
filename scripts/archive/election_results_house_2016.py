@@ -20,7 +20,7 @@ for entry in historical + current:
 govtrack_id = max(p['id']['govtrack'] for p in historical+current)
 
 # load members-elect
-xml = requests.get("http://clerk.house.gov/member_info/unofficial-115-member-elect-data.xml")
+xml = requests.get("http://clerk.house.gov/member_info/unofficial-115-member-elect-data.xml", timeout=60)
 root=lxml.etree.fromstring(xml.content)
 
 elected = []

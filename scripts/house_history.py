@@ -4,9 +4,9 @@
 # have one, by scraping history.house.gov.
 
 import lxml.html, io
-import requests
 from utils import load_data, save_data
 import sys
+from security import safe_requests
 
 def run():
   # load legislators YAML files
@@ -53,7 +53,7 @@ def run():
 
 def get_bioguide_for_house_history_id(id):
     url = "http://history.house.gov/People/Detail/%s" % id
-    r = requests.get(url, allow_redirects=False)
+    r = safe_requests.get(url, allow_redirects=False)
     if r.status_code == 200:
         dom = lxml.html.parse(io.StringIO(r.text)).getroot()
         try:
